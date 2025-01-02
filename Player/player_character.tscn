@@ -1,0 +1,104 @@
+[gd_scene load_steps=12 format=3 uid="uid://6nmesmsbc6v7"]
+
+[ext_resource type="Texture2D" uid="uid://ckkpfvtq30ubf" path="res://Player/Textures/PlayerSprite1.png" id="1_idllr"]
+[ext_resource type="Script" path="res://Player/Projectiles/ProjectileHandler.gd" id="1_xnycb"]
+[ext_resource type="Texture2D" uid="uid://10hpcdj8pfre" path="res://Player/Textures/PlayerSprite2.png" id="2_yecfv"]
+[ext_resource type="Texture2D" uid="uid://bly2illdk7qfe" path="res://Player/Textures/PlayerSprite3.png" id="3_egjhi"]
+[ext_resource type="Texture2D" uid="uid://0415sftfetal" path="res://Player/Textures/PlayerSprite4.png" id="4_c71dt"]
+[ext_resource type="Texture2D" uid="uid://be1i0b0qphj16" path="res://Player/Textures/PlayerShadow.png" id="6_625ub"]
+[ext_resource type="Texture2D" uid="uid://bl84psjbjvryu" path="res://Player/Textures/PlayerArm.png" id="7_qkdio"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xg0yh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_idllr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_yecfv")
+}],
+"loop": true,
+"name": &"he_idle",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_egjhi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_c71dt")
+}],
+"loop": true,
+"name": &"he_walk",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3v3f3"]
+size = Vector2(30, 35)
+
+[sub_resource type="Gradient" id="Gradient_7hpw4"]
+offsets = PackedFloat32Array(0, 0.467532)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5n2wx"]
+gradient = SubResource("Gradient_7hpw4")
+width = 1200
+height = 1200
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1.2, 1.2)
+
+[node name="PlayerCharacter" type="CharacterBody2D" groups=["Player"]]
+z_index = 2
+script = ExtResource("1_xnycb")
+
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
+light_mask = 0
+scale = Vector2(2.5, 2.5)
+sprite_frames = SubResource("SpriteFrames_xg0yh")
+animation = &"he_idle"
+autoplay = "he_idle"
+frame_progress = 0.463225
+
+[node name="PlayerCollision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_3v3f3")
+
+[node name="PlayerLight" type="PointLight2D" parent="."]
+physics_interpolation_mode = 2
+z_index = 1
+z_as_relative = false
+position = Vector2(-1, 0)
+color = Color(0.947226, 0.357203, 1, 1)
+energy = 4.19
+blend_mode = 2
+range_z_min = -3072
+range_z_max = 3072
+range_layer_min = -5
+range_layer_max = 5
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 1)
+shadow_filter = 2
+texture = SubResource("GradientTexture2D_5n2wx")
+texture_scale = 2.0
+
+[node name="Shadow" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(0, 17)
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("6_625ub")
+
+[node name="Arm" type="Sprite2D" parent="."]
+light_mask = 2
+scale = Vector2(2.5, 2.5)
+texture = ExtResource("7_qkdio")
+offset = Vector2(15, 0)
+
+[node name="ArmExit" type="Node2D" parent="Arm"]
+position = Vector2(21, 0)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(0.9, 0.9)
+zoom = Vector2(0.375, 0.375)
+position_smoothing_enabled = true
+position_smoothing_speed = 45.0

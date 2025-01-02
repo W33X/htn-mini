@@ -1,0 +1,25 @@
+[gd_resource type="TileSet" load_steps=6 format=3 uid="uid://bdayfabiwqkb6"]
+
+[ext_resource type="Texture2D" uid="uid://d4g6apjrtmnyx" path="res://Terrain/Tilemaps/FloorTest/Floor.png" id="1_cxhgn"]
+[ext_resource type="Texture2D" uid="uid://bnhyepyrlimhw" path="res://Terrain/Tilemaps/FloorTest/Walll.png" id="2_0g3gv"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6d887"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_268sm"]
+resource_name = "Floor"
+texture = ExtResource("1_cxhgn")
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xwfou"]
+resource_name = "Wall"
+texture = ExtResource("2_0g3gv")
+0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+
+[resource]
+occlusion_layer_0/light_mask = 1
+physics_layer_0/collision_layer = 3
+physics_layer_0/collision_mask = 3
+physics_layer_0/physics_material = SubResource("PhysicsMaterial_6d887")
+sources/2 = SubResource("TileSetAtlasSource_268sm")
+sources/3 = SubResource("TileSetAtlasSource_xwfou")
